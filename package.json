@@ -2,7 +2,7 @@
   "name": "pit-cli-ts",
   "version": "0.1.0",
   "description": "CLI application supporting Git, Docker and Jira workflows",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc --build ./tsconfig.json",
     "lint": "eslint \"{modules,utils}/**/*.ts\" --fix",
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/KinPeter/Pit-CLI-TS#readme",
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@types/node": "^16.4.14",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "axios": "^0.21.1",
