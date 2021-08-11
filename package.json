@@ -1,0 +1,25 @@
+{
+  "name": "pit-cli-ts",
+  "version": "0.1.0",
+  "description": "CLI application supporting Git, Docker and Jira workflows",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KinPeter/Pit-CLI-TS.git"
+  },
+  "keywords": [
+    "cli",
+    "git",
+    "docker",
+    "jira"
+  ],
+  "author": "Peter Kin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KinPeter/Pit-CLI-TS/issues"
+  },
+  "homepage": "https://github.com/KinPeter/Pit-CLI-TS#readme"
+}
