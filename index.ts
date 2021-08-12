@@ -1,17 +1,7 @@
-import simpleGit, { SimpleGit, SimpleGitOptions } from 'simple-git'
+import ActionParser from './modules/actionParser'
+import { PitAction } from './enums/PitAction'
 
-const options: Partial<SimpleGitOptions> = {
-  baseDir: process.cwd(),
-  binary: 'git',
-  maxConcurrentProcesses: 6,
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const [_node, _app, action, ...args] = process.argv
 
-// when setting all options in a single object
-const git: SimpleGit = simpleGit(options)
-
-async function run(): Promise<void> {
-  const branches = await git.branchLocal()
-  console.log(branches)
-}
-
-run().then(() => console.log('finished'))
+ActionParser.parse(action as PitAction, args).then()

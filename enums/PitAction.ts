@@ -1,0 +1,16 @@
+export enum PitAction {
+  CHECKOUT = 'checkout',
+  CHECKOUT_ALIAS = 'co',
+  CHECKOUT_DEVELOP = 'cod',
+  CHECKOUT_MASTER = 'com',
+  REVIEW = 'review',
+  REVIEW_ALIAS = 'rv',
+  CLEAN = 'clean',
+  CLEAN_ALIAS = 'cl',
+  PULL_ORIGIN = 'pulo',
+  DOCKER = 'docker',
+  DOCKER_ALIAS = 'd',
+  JIRA = 'jira',
+  HELP = 'help',
+  DEBUG = 'debug',
+}
