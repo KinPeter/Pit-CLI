@@ -5,7 +5,7 @@ import {
   cyan as chalkCyan,
 } from 'chalk'
 
-interface LoggerInstance {
+export interface LoggerInstance {
   red: (message: string) => void
   green: (message: string) => void
   blue: (message: string) => void

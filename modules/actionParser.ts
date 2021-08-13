@@ -12,6 +12,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       await Git.checkoutDevelop(args)
       break
     case PitAction.CHECKOUT_MASTER:
+      await Git.checkoutMaster(args)
       break
     case PitAction.REVIEW:
     case PitAction.REVIEW_ALIAS:
@@ -20,6 +21,9 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
     case PitAction.CLEAN_ALIAS:
       break
     case PitAction.PULL_ORIGIN:
+      await Git.pullOriginHead()
+      break
+    case PitAction.USER:
       break
     case PitAction.DOCKER:
     case PitAction.DOCKER_ALIAS:

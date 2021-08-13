@@ -11,6 +11,7 @@ export enum PitAction {
   DOCKER = 'docker',
   DOCKER_ALIAS = 'd',
   JIRA = 'jira',
+  USER = 'user',
   HELP = 'help',
   DEBUG = 'debug',
 }
