@@ -1,6 +1,7 @@
 import simpleGit, { GitError, SimpleGit, SimpleGitOptions } from 'simple-git'
 import Logger from '../utils/logger'
 import { confirmRepo, getLocalName, showLatestCommit } from '../utils/gitUtils'
+import Ui from '../utils/ui'
 
 const options: Partial<SimpleGitOptions> = {
   baseDir: process.cwd(),
@@ -56,9 +57,24 @@ async function checkoutBranch(namePart: string): Promise<void> {
   }
 }
 
+async function checkoutWithSelect(): Promise<void> {
+  try {
+    const branches = await git.branch()
+    const description = 'Select a branch to check out:'
+    const selected = Ui.selectMenu(description, branches.all)
+    console.log(selected)
+  } catch (e) {
+    logger.red(`Checkout failed.`)
+    logger.def(e instanceof GitError ? e.message : e)
+  }
+}
+
 async function checkout([branchNumber, ..._rest]: string[]): Promise<void> {
   await confirmRepo(logger, git)
-  await checkoutBranch(branchNumber)
+  if (branchNumber) {
+    await checkoutBranch(branchNumber)
+  }
+  await checkoutWithSelect()
 }
 
 async function checkoutDevelop([flag]: string[]): Promise<void> {

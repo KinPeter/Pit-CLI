@@ -36,7 +36,11 @@
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
     "prettier-eslint": "^13.0.0",
+    "prompts": "^2.4.1",
     "simple-git": "^2.42.0",
     "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.0.14"
   }
 }

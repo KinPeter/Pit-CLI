@@ -14,7 +14,7 @@ export interface LoggerInstance {
   linebreak: () => void
 }
 
-function getInstance(module: string): LoggerInstance {
+function getInstance(module?: string): LoggerInstance {
   return {
     red(message: string): void {
       console.log(chalkRedBright(`[${module}] ${message}`))
