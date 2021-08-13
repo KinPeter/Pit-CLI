@@ -1,7 +1,6 @@
 import ActionParser from './modules/actionParser'
 import { PitAction } from './enums/PitAction'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const [_node, _app, action, ...args] = process.argv
+const [action, ...args] = process.argv.slice(2)
 
 ActionParser.parse(action as PitAction, args).then()
