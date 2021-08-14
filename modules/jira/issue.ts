@@ -8,7 +8,6 @@ import {
   printIssueData,
 } from '../../utils/jiraUtils'
 import Git from '../git'
-import { GitError } from 'simple-git'
 
 export function useJiraIssue(logger: LoggerInstance) {
   const projectConfig = Config.getCurrentJiraProject()
@@ -27,7 +26,7 @@ export function useJiraIssue(logger: LoggerInstance) {
       return data
     } catch (e) {
       logger.red(`Could not fetch issue data.`)
-      logger.def(e instanceof GitError ? e.message : e)
+      console.log('Error:', e?.response?.data ?? e.message)
       process.exit(1)
     }
   }
