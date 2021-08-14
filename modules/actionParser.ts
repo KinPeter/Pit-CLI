@@ -16,6 +16,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       break
     case PitAction.REVIEW:
     case PitAction.REVIEW_ALIAS:
+      await Git.review(args)
       break
     case PitAction.CLEAN:
     case PitAction.CLEAN_ALIAS:

@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc --build ./tsconfig.json",
     "watch": "tsc --build ./tsconfig.json --watch",
-    "lint": "eslint \"{modules,utils}/**/*.ts\" --fix",
-    "format:check": "prettier --check \"{modules,utils}/**/*.{ts,json}\""
+    "lint": "eslint \"{modules,utils,enums}/**/*.ts\" --fix",
+    "format:check": "prettier --check \"{modules,utils,enums}/**/*.{ts,json}\""
   },
   "repository": {
     "type": "git",
@@ -26,21 +26,21 @@
   },
   "homepage": "https://github.com/KinPeter/Pit-CLI-TS#readme",
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/node": "^16.4.14",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.29.1",
     "axios": "^0.21.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.2",
-    "prettier-eslint": "^13.0.0",
     "prompts": "^2.4.1",
     "simple-git": "^2.42.0",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
-    "@types/prompts": "^2.0.14"
+    "@types/axios": "^0.14.0",
+    "@types/prompts": "^2.0.14",
+    "@types/node": "^16.4.14",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "prettier-eslint": "^13.0.0"
   }
 }
