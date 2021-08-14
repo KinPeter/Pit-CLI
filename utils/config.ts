@@ -63,11 +63,18 @@ function getGitUser(): GitUser {
   return readConfigFile().gitUser
 }
 
-function getJiraProjects(): JiraProject[] {
-  return Object.values(readConfigFile().jiraProjects)
+function getCurrentJiraProject(): JiraProject {
+  const projects = Object.values(readConfigFile().jiraProjects)
+  const currentFolder = path.basename(path.resolve(process.cwd()))
+  const project = projects.find(p => p.folders.includes(currentFolder))
+  if (!project) {
+    logger.red('Could not find Jira project in config.')
+    process.exit(1)
+  }
+  return project
 }
 
 export default {
   getGitUser,
-  getJiraProjects,
+  getCurrentJiraProject,
 }

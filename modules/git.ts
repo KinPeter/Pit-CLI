@@ -5,6 +5,7 @@ import { useGitPull } from './git/pull'
 import { useGitReview } from './git/review'
 import { useGitClean } from './git/clean'
 import { useGitUser } from './git/user'
+import { useGitCreateBranch } from './git/createBranch'
 
 const options: Partial<SimpleGitOptions> = {
   baseDir: process.cwd(),
@@ -20,6 +21,7 @@ const { pullOriginHead } = useGitPull(git, logger)
 const { review } = useGitReview(git, logger)
 const { clean } = useGitClean(git, logger)
 const { user } = useGitUser(git, logger)
+const { createBranch } = useGitCreateBranch(git, logger)
 
 export default {
   checkout,
@@ -29,4 +31,5 @@ export default {
   review,
   clean,
   user,
+  createBranch,
 }
