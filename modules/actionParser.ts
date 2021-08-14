@@ -1,6 +1,7 @@
 import { PitAction } from '../enums/PitAction'
 import Git from './git'
 import Jira from './jira'
+import Docker from './docker'
 
 async function parse(action: PitAction, args: string[]): Promise<void> {
   console.log('cwd:', process.cwd(), 'action:', action, 'args:', JSON.stringify(args))
@@ -34,6 +35,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       break
     case PitAction.DOCKER:
     case PitAction.DOCKER_ALIAS:
+      await Docker.remove(args)
       break
     case PitAction.HELP:
       break
