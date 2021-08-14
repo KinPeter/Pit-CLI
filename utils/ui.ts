@@ -11,19 +11,16 @@ async function selectMenuString(description: string, menuItems: string[]): Promi
   return res.value
 }
 
-async function multiSelectString(description: string, menuItems: string[]): Promise<string> {
+async function multiSelectString(description: string, menuItems: string[]): Promise<string[]> {
   const res = await prompts({
     type: 'multiselect',
-    name: 'value',
-    message: '',
+    name: 'values',
+    message: description,
     instructions: false,
     // optionsPerPage: 15,
     choices: menuItems.map(item => ({ title: item, value: item })),
   })
-
-  console.log(res)
-
-  return res.value[0]
+  return res.values
 }
 
 export default {

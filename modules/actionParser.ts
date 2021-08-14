@@ -20,6 +20,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       break
     case PitAction.CLEAN:
     case PitAction.CLEAN_ALIAS:
+      await Git.clean(args)
       break
     case PitAction.PULL_ORIGIN:
       await Git.pullOriginHead()
