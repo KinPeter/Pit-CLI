@@ -26,6 +26,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       await Git.pullOriginHead()
       break
     case PitAction.USER:
+      await Git.user(args)
       break
     case PitAction.DOCKER:
     case PitAction.DOCKER_ALIAS:
