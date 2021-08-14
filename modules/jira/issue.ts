@@ -10,16 +10,24 @@ import {
 import Git from '../git'
 
 export function useJiraIssue(logger: LoggerInstance) {
-  const projectConfig = Config.getCurrentJiraProject()
-  const baseUrl = `${projectConfig.url}/rest/api/3/issue/${projectConfig.prefix}-`
-  const http = axios.create({
-    headers: {
-      Authorization: createAuthorizationString(projectConfig),
-    },
-  })
+  function initialize() {
+    const projectConfig = Config.getCurrentJiraProject()
+    const baseUrl = `${projectConfig.url}/rest/api/3/issue/${projectConfig.prefix}-`
+    const http = axios.create({
+      headers: {
+        Authorization: createAuthorizationString(projectConfig),
+      },
+    })
+    return {
+      projectConfig,
+      baseUrl,
+      http,
+    }
+  }
 
   async function getIssueData(issueNumber: string): Promise<JiraIssue> {
     try {
+      const { projectConfig, http, baseUrl } = initialize()
       const res = await http.get(baseUrl + issueNumber)
       const data = res.data as JiraIssue
       printIssueData(data, projectConfig)
