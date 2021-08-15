@@ -2,6 +2,12 @@ import { GitConfigScope, GitError, SimpleGit } from 'simple-git'
 import { LoggerInstance } from '../../utils/logger'
 import Config from '../../utils/config'
 
+enum UserParam {
+  GLOBAL = '-g',
+  WORK = '-w',
+  PERSONAL = '-p',
+}
+
 export function useGitUser(git: SimpleGit, logger: LoggerInstance) {
   async function getUser({ global } = { global: false }): Promise<void> {
     try {
@@ -36,38 +42,42 @@ export function useGitUser(git: SimpleGit, logger: LoggerInstance) {
   }
 
   async function user([...options]: string[]): Promise<void> {
-    if (!options.length) {
+    const params = options as UserParam[]
+    if (!params.length) {
       await getUser()
       return
     }
-    if (options.length === 1) {
-      switch (options[0]) {
-        case '-g':
+    if (params.length === 1) {
+      switch (params[0] as UserParam) {
+        case UserParam.GLOBAL:
           await getUser({ global: true })
           break
-        case '-w':
+        case UserParam.WORK:
           await setUser({ work: true, global: false })
           break
-        case '-p':
+        case UserParam.PERSONAL:
           await setUser({ work: false, global: false })
           break
         default:
-          logger.red('Unknown option parameter: ' + options[0])
+          logger.red('Unknown option parameter: ' + params[0])
           process.exit(1)
           break
       }
-    } else if (options.length === 2) {
-      if (!options.every(o => ['-g', '-w', '-p'].includes(o)) || !options.includes('-g')) {
-        logger.red('Invalid option parameters: ' + options)
+    } else if (params.length === 2) {
+      if (
+        !params.every(o => Object.values(UserParam).includes(o)) ||
+        !params.includes(UserParam.GLOBAL)
+      ) {
+        logger.red('Invalid option parameters: ' + params)
         process.exit(1)
       }
-      if (options.includes('-w')) {
+      if (params.includes(UserParam.WORK)) {
         await setUser({ work: true, global: true })
-      } else if (options.includes('-p')) {
+      } else if (params.includes(UserParam.PERSONAL)) {
         await setUser({ work: false, global: true })
       }
     } else {
-      logger.red('Invalid option parameters: ' + options)
+      logger.red('Invalid option parameters: ' + params)
       process.exit(1)
     }
   }
