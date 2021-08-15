@@ -51,6 +51,10 @@ function showHelp([command]: string[]): void {
       showMainHelp()
       break
     default:
+      if (!command) {
+        showMainHelp()
+        break
+      }
       logger.red('Unknown command: ' + command.toString())
       logger.cyan('Make sure to run `pit help` with available commands.')
       break
