@@ -45,7 +45,7 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
     case PitAction.HELP_ALIAS1:
     case PitAction.HELP_ALIAS2:
     case PitAction.HELP_ALIAS3:
-      Help.showHelp()
+      Help.showHelp(args)
       break
     default:
       logger.red(action ? 'Unknown action: ' + action.toString() : 'No action specified.')

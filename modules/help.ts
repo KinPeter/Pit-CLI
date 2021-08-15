@@ -1,124 +1,60 @@
-import { blueBright, bold, cyan } from 'chalk'
+import Logger from '../utils/logger'
+import { useHelp } from './help/helpByCommand'
+import { PitAction } from '../enums/PitAction'
 
-function showHelp(): void {
-  console.log(`
-${bold(blueBright('Pit CLI Usage'))}
-${bold(blueBright('============='))}
+const logger = Logger.getInstance('Help')
 
-Pit has different modules which can be started by running ${bold(cyan('pit <module> [<parameters>]'))}. 
-You can choose from the below modules to run:
+const {
+  showMainHelp,
+  showCheckoutHelp,
+  showCleanHelp,
+  showDockerHelp,
+  showJiraHelp,
+  showPullHelp,
+  showReviewHelp,
+  showUserHelp,
+} = useHelp()
 
-  ${cyan('checkout, co')}            Checkout - Checks out a branch.
-  ${cyan('review, rv')}              Reviewer - Checks out a remote branch for review.
-  ${cyan('clean, cl')}               Branch Cleaner - Deletes local branches in a Git repository.
-  ${cyan('pulo')}                    Pulls from origin from the current branch.
-  ${cyan('docker, d')}               Deletes containers, images or volumes using a multiselect menu.
-  ${cyan('jira')}                    Fetches information about a Jira issue
-  ${cyan('user')}                    Gets/sets Git user email locally or globally.
-  
-  ${cyan('help')}                    Displays this help page.
-
-
-${bold(blueBright('Checkout'))}
-${bold(blueBright('--------'))}
-  
-  ${cyan('checkout, co')}            Checks out a branch.
-
-Without parameters: displays a select menu to choose which branches to check out. 
-Press ${cyan('<Enter>')} after selecting the branch, or ${cyan('<ESC>')} to cancel and quit. 
-
-Shortcut options:
-  ${cyan('com')}                     Checks out the 'master' or 'main' branch (whichever exists).
-  ${cyan('cod')}                     Checks out the 'develop' branch. 
-  ${cyan('-r')}                      Used with the 'com' or 'cod' command, also performs a pull.
-
-Optional parameters for the ${cyan('checkout')} or ${cyan('co')} commands: 
-  ${cyan('[string]')}                Looks for the given string in branch names and checks out the first one
-                          it finds.
-
-
-${bold(blueBright('Review'))}
-${bold(blueBright('------'))}
-  
-  ${cyan('review, rv')}              Checks out a remote branch for review.
-
-Without parameters: displays a select menu to choose which remote branches to check out.  
-Press ${cyan('<Enter>')} after selecting the branch, or ${cyan('<ESC>')} to cancel and quit. 
-
-Optional parameters: 
-  ${cyan('[string]')}                Looks for the given string in branch names and checks out the first one
-                          it finds.
-
-
-${bold(blueBright('Branch cleaner'))}
-${bold(blueBright('--------------'))}
-  
-  ${cyan('clean, cl')}               Deletes local branches in a Git repository.
-  
-Without parameters: displays a multiselect menu to choose which local branches to delete. Use ${cyan('<Space>')} to 
-select branches, press ${cyan('<Enter>')} when you're done with the selection, or ${cyan('<ESC>')} to cancel and quit.
-
-Optional parameters: 
-  ${cyan('-a')}                      Auto mode: Tries to delete all branches except the current HEAD and 
-                          master/main/develop branches. It will skip those branches which are not yet merged into 
-                          the current branch. 
-  ${cyan('-af')}                     Auto+Force mode: Force deletes all branches except the current HEAD 
-                          and master/main/develop branches. 
-
-
-${bold(blueBright('Pull from origin'))}
-${bold(blueBright('----------------'))}
-  
-  ${cyan('pulo')}                    Pulls from origin from the branch with the same name as pointed at the current HEAD.
-
-No optional parameters.
-
-
-${bold(blueBright('Docker'))}
-${bold(blueBright('------'))}
-  
-  ${cyan('docker, d')}               Offers a multiselect menu to remove docker containers, images and volumes.
-
-Parameters:
-  ${cyan('rm')}                      Removes containers
-  ${cyan('rmi')}                     Removes images
-  ${cyan('rmv')}                     Removes volumes
-
-
-${bold(blueBright('Jira'))}
-${bold(blueBright('----'))}
-  
-  ${cyan('jira')}                    Fetches information about a Jira issue from the Jira Cloud API.
-  
-Parameters:
-  ${cyan('[number]')}                The requested issue number
-
-Optional parameters:
-  ${cyan('-c')}                      Creates a new branch with the suggested branch name
-
-Configuration:
-Create a ${cyan('.pitconfig.json')} file in your user directory. Use the ${cyan('.pitconfig.example.json')} file in 
-the ${cyan('pit-cli')} folder as an example.
-There can be multiple projects configured, just make sure the project folders are correct. 
-
-
-${bold(blueBright('User'))}
-${bold(blueBright('----'))}
-  
-  ${cyan('user')}                    Gets or sets the global or local (for repository) Git user email according to 
-                          the given parameters.
-   
-Without parameters: Gets the local user email set for the current repository.
-
-Parameters:
-  ${cyan('-g')}                      Sets the config level to Global
-  ${cyan('-p')}                      Sets the Git user email to the pre-set personal email address
-  ${cyan('-w')}                      Sets the Git user email to the pre-set work email address
-  
-Configuration:
-Create a ${cyan('.pitconfig.json')} file in your user directory. Use the ${cyan('.pitconfig.example.json')} file in 
-the ${cyan('pit-cli')} folder as an example.
-  `)
+function showHelp([command]: string[]): void {
+  switch (command as PitAction) {
+    case PitAction.CHECKOUT:
+    case PitAction.CHECKOUT_ALIAS:
+    case PitAction.CHECKOUT_DEVELOP:
+    case PitAction.CHECKOUT_MASTER:
+      showCheckoutHelp()
+      break
+    case PitAction.REVIEW:
+    case PitAction.REVIEW_ALIAS:
+      showReviewHelp()
+      break
+    case PitAction.CLEAN:
+    case PitAction.CLEAN_ALIAS:
+      showCleanHelp()
+      break
+    case PitAction.PULL_ORIGIN:
+      showPullHelp()
+      break
+    case PitAction.USER:
+      showUserHelp()
+      break
+    case PitAction.JIRA:
+      showJiraHelp()
+      break
+    case PitAction.DOCKER:
+    case PitAction.DOCKER_ALIAS:
+      showDockerHelp()
+      break
+    case PitAction.HELP:
+    case PitAction.HELP_ALIAS1:
+    case PitAction.HELP_ALIAS2:
+    case PitAction.HELP_ALIAS3:
+      showMainHelp()
+      break
+    default:
+      logger.red('Unknown command: ' + command.toString())
+      logger.cyan('Make sure to run `pit help` with available commands.')
+      break
+  }
 }
 
 export default {
