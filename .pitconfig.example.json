@@ -1,0 +1,34 @@
+{
+  "gitUser": {
+    "personalEmail": "myemail@gmail.com",
+    "workEmail": "my.name@dev-company.com"
+  },
+  "jiraProjects": {
+    "projectName": {
+      "prefix": "Jira ticket prefix, capital letters e.g. DC",
+      "url": "Jira base url, e.g. https://mycompany.atlassian.net",
+      "user": "Email you use for Jira, e.g. my.name@dev-company.com",
+      "apiToken": "Jira API token",
+      "folders": [
+        "Folders used for the projects (as working directory), e.g.:",
+        "project-web-admin",
+        "project-web-public",
+        "project-backend",
+        "project-documentation"
+      ]
+    },
+    "otherProject": {
+      "prefix": "Jira ticket prefix, capital letters e.g. AASD",
+      "url": "Jira base url, e.g. https://mycompany.atlassian.net",
+      "user": "Email you use for Jira, e.g. my.name@dev-company.com",
+      "apiToken": "Jira API token",
+      "folders": [
+        "Folders used for the projects (as working directory), e.g.:",
+        "other-web-admin",
+        "other-web-public",
+        "other-backend",
+        "other-documentation"
+      ]
+    }
+  }
+}

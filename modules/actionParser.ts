@@ -2,9 +2,13 @@ import { PitAction } from '../enums/PitAction'
 import Git from './git'
 import Jira from './jira'
 import Docker from './docker'
+import Help from './help'
+import Logger from '../utils/logger'
+
+const logger = Logger.getInstance('ActionParser')
 
 async function parse(action: PitAction, args: string[]): Promise<void> {
-  console.log('cwd:', process.cwd(), 'action:', action, 'args:', JSON.stringify(args))
+  // console.log('cwd:', process.cwd(), 'action:', action, 'args:', JSON.stringify(args))
   switch (action) {
     case PitAction.CHECKOUT:
     case PitAction.CHECKOUT_ALIAS:
@@ -38,10 +42,14 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
       await Docker.remove(args)
       break
     case PitAction.HELP:
-      break
-    case PitAction.DEBUG:
+    case PitAction.HELP_ALIAS1:
+    case PitAction.HELP_ALIAS2:
+    case PitAction.HELP_ALIAS3:
+      Help.showHelp()
       break
     default:
+      logger.red(action ? 'Unknown action: ' + action.toString() : 'No action specified.')
+      logger.cyan('Run `pit help` for more info about available actions.')
       break
   }
 }

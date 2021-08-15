@@ -13,5 +13,8 @@ export enum PitAction {
   JIRA = 'jira',
   USER = 'user',
   HELP = 'help',
+  HELP_ALIAS1 = '--help',
+  HELP_ALIAS2 = 'h',
+  HELP_ALIAS3 = '-h',
   DEBUG = 'debug',
 }
