@@ -1,4 +1,4 @@
-import prompts from 'prompts' // https://github.com/terkelg/prompts#readme
+import prompts, { Choice } from 'prompts' // https://github.com/terkelg/prompts#readme
 
 async function selectMenuString(description: string, menuItems: string[]): Promise<string> {
   const res = await prompts({
@@ -23,7 +23,20 @@ async function multiSelectString(description: string, menuItems: string[]): Prom
   return res.values
 }
 
+async function multiSelect(description: string, menuItems: Choice[]): Promise<string[]> {
+  const res = await prompts({
+    type: 'multiselect',
+    name: 'values',
+    message: description,
+    instructions: false,
+    // optionsPerPage: 15,
+    choices: menuItems,
+  })
+  return res.values
+}
+
 export default {
   selectMenuString,
   multiSelectString,
+  multiSelect,
 }
