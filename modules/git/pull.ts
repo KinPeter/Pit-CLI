@@ -7,8 +7,8 @@ export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
     try {
       let res: string
       if (withRebase) {
-        res = await git.raw('pull', remote, branch, '--rebase')
         logger.blue(`Pulling from ${remote}/${branch} with rebasing...`)
+        res = await git.raw('pull', remote, branch, '--rebase')
       } else {
         logger.blue(`Pulling from ${remote}/${branch}...`)
         res = await git.raw('pull', remote, branch)

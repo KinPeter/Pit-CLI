@@ -9,6 +9,12 @@ export function useGitCheckout(git: SimpleGit, logger: LoggerInstance) {
 
   async function checkoutBranch(namePart: string): Promise<void> {
     try {
+      if (namePart === '-') {
+        logger.blue(`Switching to previous branch...`)
+        await git.raw('checkout', '-')
+        await showLatestCommit(logger, git)
+        return
+      }
       let branch: string | undefined
       const localBranches = await git.branchLocal()
       if (localBranches.all.length) {

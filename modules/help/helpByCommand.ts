@@ -33,6 +33,7 @@ Without parameters: displays a select menu to choose which branches to check out
 Press ${cyan('<Enter>')} after selecting the branch, or ${cyan('<ESC>')} to cancel and quit. 
 
 Shortcut options:
+  ${cyan('-')}                       Checks out the branch which was previously checked out. 
   ${cyan('com')}                     Checks out the 'master' or 'main' branch (whichever exists).
   ${cyan('cod')}                     Checks out the 'develop' branch. 
   ${cyan('-r')}                      Used with the 'com' or 'cod' command, also performs a pull.
