@@ -3,10 +3,16 @@ import { confirmRepo } from '../../utils/gitUtils'
 import { LoggerInstance } from '../../utils/logger'
 
 export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
-  async function pull(remote: string, branch: string): Promise<void> {
+  async function pull(remote: string, branch: string, withRebase = false): Promise<void> {
     try {
-      logger.blue(`Pulling from ${remote}/${branch}...`)
-      const res = await git.raw('pull', remote, branch)
+      let res: string
+      if (withRebase) {
+        res = await git.raw('pull', remote, branch, '--rebase')
+        logger.blue(`Pulling from ${remote}/${branch} with rebasing...`)
+      } else {
+        logger.blue(`Pulling from ${remote}/${branch}...`)
+        res = await git.raw('pull', remote, branch)
+      }
       logger.def(res)
     } catch (e) {
       logger.red(`Could not pull from ${remote}/${branch}`)
@@ -14,8 +20,8 @@ export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
     }
   }
 
-  async function pullOrigin(branch: string): Promise<void> {
-    await pull('origin', branch)
+  async function pullOrigin(branch: string, withRebase = false): Promise<void> {
+    await pull('origin', branch, withRebase)
   }
 
   async function pullOriginHead(): Promise<void> {

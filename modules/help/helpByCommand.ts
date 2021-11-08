@@ -36,6 +36,7 @@ Shortcut options:
   ${cyan('com')}                     Checks out the 'master' or 'main' branch (whichever exists).
   ${cyan('cod')}                     Checks out the 'develop' branch. 
   ${cyan('-r')}                      Used with the 'com' or 'cod' command, also performs a pull.
+  ${cyan('-rr')}                     Used with the 'com' or 'cod' command, also performs a pull with rebasing.
 
 Optional parameters for the ${cyan('checkout')} or ${cyan('co')} commands: 
   ${cyan('[string]')}                Looks for the given string in branch names and checks out the first one

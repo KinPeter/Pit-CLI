@@ -71,8 +71,8 @@ export function useGitCheckout(git: SimpleGit, logger: LoggerInstance) {
       await confirmRepo(logger, git)
       logger.blue(`Switching to branch develop...`)
       await git.checkout('develop')
-      if (flag === '-r') {
-        await pullOrigin('develop')
+      if (flag === '-r' || flag === '-rr') {
+        await pullOrigin('develop', flag === '-rr')
       }
       await showLatestCommit(logger, git)
     } catch (e) {
@@ -89,8 +89,8 @@ export function useGitCheckout(git: SimpleGit, logger: LoggerInstance) {
       const branch = hasMain ? 'main' : 'master'
       logger.blue(`Switching to branch ${branch}...`)
       await git.checkout(branch)
-      if (flag === '-r') {
-        await pullOrigin(branch)
+      if (flag === '-r' || flag === '-rr') {
+        await pullOrigin(branch, flag === '-rr')
       }
       await showLatestCommit(logger, git)
     } catch (e) {
