@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/KinPeter/Pit-CLI#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.24.0",
     "docker-cli-js": "^2.8.0",
     "prompts": "^2.4.1",
     "simple-git": "^2.42.0",
