@@ -68,7 +68,8 @@ export function printIssueData(issue: JiraIssue, config: JiraProject): void {
 }
 
 export function getSuggestedBranchName(issue: JiraIssue): string {
-  const branchType = issue.fields.issuetype.name === 'Bug' ? 'bugfix' : 'feature'
+  const type = issue.fields.issuetype.name
+  const branchType = type === 'Bug' ? 'bugfix' : type === 'Story' ? 'story' : 'feature'
   const summary = issue.fields.summary
     .trim()
     .toLowerCase()
