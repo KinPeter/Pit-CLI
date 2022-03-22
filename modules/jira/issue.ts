@@ -34,7 +34,7 @@ export function useJiraIssue(logger: LoggerInstance) {
       return data
     } catch (e) {
       logger.red(`Could not fetch issue data.`)
-      console.log('Error:', e?.response?.data ?? e.message)
+      console.log('Error:', (e as any)?.response?.data ?? (e as any).message)
       process.exit(1)
     }
   }

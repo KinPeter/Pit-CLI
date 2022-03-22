@@ -6,29 +6,29 @@ import {
 } from 'chalk'
 
 export interface LoggerInstance {
-  red: (message: string) => void
-  green: (message: string) => void
-  blue: (message: string) => void
-  cyan: (message: string) => void
-  def: (message: string) => void
+  red: (message: string | unknown) => void
+  green: (message: string | unknown) => void
+  blue: (message: string | unknown) => void
+  cyan: (message: string | unknown) => void
+  def: (message: string | unknown) => void
   linebreak: () => void
 }
 
 function getInstance(module?: string): LoggerInstance {
   return {
-    red(message: string): void {
+    red(message: string | unknown): void {
       console.log(chalkRedBright(`[${module}] ${message}`))
     },
-    green(message: string): void {
+    green(message: string | unknown): void {
       console.log(chalkGreen(`[${module}] ${message}`))
     },
-    blue(message: string): void {
+    blue(message: string | unknown): void {
       console.log(chalkBlueBright(`[${module}] ${message}`))
     },
-    cyan(message: string): void {
+    cyan(message: string | unknown): void {
       console.log(chalkCyan(`[${module}] ${message}`))
     },
-    def(message: string): void {
+    def(message: string | unknown): void {
       console.log(`[${module}] ${message}`)
     },
     linebreak(): void {
