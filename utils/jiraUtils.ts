@@ -1,7 +1,7 @@
 import { JiraProject } from './config'
 import { blue } from 'chalk'
 
-const specialCharacters = /[$&+,:;=?¿@#|'<>.^*()%!¡~/`\]\[{}\\_-]/g
+const specialCharacters = /[$&+,:;=?¿@#|"'<>.^*()%!¡~/`\]\[{}\\_-]/g
 const spaces = /\s/g
 
 export interface JiraIssue {
