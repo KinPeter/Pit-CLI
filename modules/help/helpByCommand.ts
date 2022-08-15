@@ -116,7 +116,9 @@ Parameters:
   ${cyan('[number]')}                The requested issue number
 
 Optional parameters:
-  ${cyan('-c')}                      Creates a new branch with the suggested branch name
+  ${cyan('-c')}                      Creates a new branch with the suggested branch name 
+                          (e.g. feature/ABC-1234-the-full-issue-title)
+  ${cyan('-cs')}                     Creates a new branch with only the issue key as branch name (e.g. ABC-1234)
 
 Configuration:
 Create a ${cyan('.pitconfig.json')} file in your user directory. Use the ${cyan('.pitconfig.example.json')} file in 

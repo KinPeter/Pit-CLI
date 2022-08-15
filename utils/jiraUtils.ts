@@ -29,6 +29,11 @@ export interface JiraUser {
   displayName: string
 }
 
+export interface CreateBranchOptions {
+  issue: JiraIssue
+  short?: boolean
+}
+
 export function createAuthorizationString(config: JiraProject): string {
   const string = `${config.user}:${config.apiToken}`
   const buffer = Buffer.from(string)
@@ -63,11 +68,12 @@ export function printIssueData(issue: JiraIssue, config: JiraProject): void {
     l()
   }
   l()
-  l(`${blue('Suggested:')}  ${getSuggestedBranchName(issue)}`)
+  l(`${blue('Suggested:')}  ${getSuggestedBranchName({ issue })}`)
   l()
 }
 
-export function getSuggestedBranchName(issue: JiraIssue): string {
+export function getSuggestedBranchName({ issue, short = false }: CreateBranchOptions): string {
+  if (short) return issue.key
   const type = issue.fields.issuetype.name
   const branchType = type === 'Bug' ? 'bugfix' : type === 'Story' ? 'story' : 'feature'
   const summary = issue.fields.summary

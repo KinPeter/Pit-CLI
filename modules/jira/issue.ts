@@ -39,9 +39,13 @@ export function useJiraIssue(logger: LoggerInstance) {
     }
   }
 
-  async function getDataAndCreateBranch(issueNumber: string): Promise<void> {
+  async function getDataAndCreateBranch(
+    issueNumber: string,
+    options: { short: boolean } = { short: false }
+  ): Promise<void> {
     const issue = await getIssueData(issueNumber)
-    const branchName = getSuggestedBranchName(issue)
+    const { short } = options
+    const branchName = getSuggestedBranchName({ issue, short })
     await Git.createBranch(branchName)
   }
 
@@ -60,6 +64,8 @@ export function useJiraIssue(logger: LoggerInstance) {
       process.exit(1)
     } else if (options.length === 1) {
       await getIssueData(options[0])
+    } else if (options.length === 2 && options.includes('-cs')) {
+      await getDataAndCreateBranch(parseIssueNumber(options), { short: true })
     } else if (options.length === 2 && options.includes('-c')) {
       await getDataAndCreateBranch(parseIssueNumber(options))
     } else {
