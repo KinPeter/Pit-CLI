@@ -50,7 +50,7 @@ export function useJiraIssue(logger: LoggerInstance) {
   }
 
   function parseIssueNumber(options: string[]): string {
-    const issueNumber = options.find(o => o !== '-c')
+    const issueNumber = options.find(o => o !== '-c' && o !== '-cs')
     if (!issueNumber) {
       logger.red('Could not parse issue number.')
       process.exit(1)
