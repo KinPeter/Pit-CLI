@@ -2,6 +2,7 @@ import { LoggerInstance } from '../../utils/logger'
 import Config from '../../utils/config'
 import axios from 'axios'
 import {
+  BranchNaming,
   createAuthorizationString,
   getSuggestedBranchName,
   JiraIssue,
@@ -41,16 +42,16 @@ export function useJiraIssue(logger: LoggerInstance) {
 
   async function getDataAndCreateBranch(
     issueNumber: string,
-    options: { short: boolean } = { short: false }
+    options: { type: BranchNaming } = { type: BranchNaming.FULL }
   ): Promise<void> {
     const issue = await getIssueData(issueNumber)
-    const { short } = options
-    const branchName = getSuggestedBranchName({ issue, short })
+    const { type } = options
+    const branchName = getSuggestedBranchName({ issue, type })
     await Git.createBranch(branchName)
   }
 
   function parseIssueNumber(options: string[]): string {
-    const issueNumber = options.find(o => o !== '-c' && o !== '-cs')
+    const issueNumber = options.find(o => !['-c', '-cs', '-ck'].includes(o))
     if (!issueNumber) {
       logger.red('Could not parse issue number.')
       process.exit(1)
@@ -65,9 +66,11 @@ export function useJiraIssue(logger: LoggerInstance) {
     } else if (options.length === 1) {
       await getIssueData(options[0])
     } else if (options.length === 2 && options.includes('-cs')) {
-      await getDataAndCreateBranch(parseIssueNumber(options), { short: true })
+      await getDataAndCreateBranch(parseIssueNumber(options), { type: BranchNaming.SHORT })
+    } else if (options.length === 2 && options.includes('-ck')) {
+      await getDataAndCreateBranch(parseIssueNumber(options), { type: BranchNaming.KEY_ONLY })
     } else if (options.length === 2 && options.includes('-c')) {
-      await getDataAndCreateBranch(parseIssueNumber(options))
+      await getDataAndCreateBranch(parseIssueNumber(options), { type: BranchNaming.FULL })
     } else {
       logger.red('Invalid option parameters: ' + options)
       process.exit(1)

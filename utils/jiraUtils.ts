@@ -29,9 +29,15 @@ export interface JiraUser {
   displayName: string
 }
 
+export enum BranchNaming {
+  FULL = 'FULL',
+  SHORT = 'SHORT',
+  KEY_ONLY = 'KEY_ONLY',
+}
+
 export interface CreateBranchOptions {
   issue: JiraIssue
-  short?: boolean
+  type: BranchNaming
 }
 
 export function createAuthorizationString(config: JiraProject): string {
@@ -68,14 +74,23 @@ export function printIssueData(issue: JiraIssue, config: JiraProject): void {
     l()
   }
   l()
-  l(`${blue('Suggested:')}  ${getSuggestedBranchName({ issue })}`)
+  l(`${blue('Suggested:')}  ${getSuggestedBranchName({ issue, type: BranchNaming.FULL })}`)
   l()
 }
 
-export function getSuggestedBranchName({ issue, short = false }: CreateBranchOptions): string {
-  if (short) return issue.key
-  const type = issue.fields.issuetype.name
-  const branchType = type === 'Bug' ? 'bugfix' : type === 'Story' ? 'story' : 'feature'
+export function getSuggestedBranchName({
+  issue,
+  type = BranchNaming.FULL,
+}: CreateBranchOptions): string {
+  if (type === BranchNaming.KEY_ONLY) return issue.key
+
+  const issueType = issue.fields.issuetype.name
+  const branchType = issueType === 'Bug' ? 'bugfix' : /*type === 'Story' ? 'story' :*/ 'feature'
+
+  if (type === BranchNaming.SHORT) {
+    return `${branchType}/${issue.key}`
+  }
+
   const summary = issue.fields.summary
     .trim()
     .toLowerCase()
