@@ -24,11 +24,13 @@ export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
     await pull('origin', branch, withRebase)
   }
 
-  async function pullOriginHead(): Promise<void> {
+  async function pullOriginHead(
+    { rebase }: { rebase: boolean } = { rebase: false }
+  ): Promise<void> {
     try {
       await confirmRepo(logger, git)
       const currentBranch = (await git.branchLocal()).current
-      await pullOrigin(currentBranch)
+      await pullOrigin(currentBranch, rebase)
     } catch (e) {
       logger.red(`Pull failed.`)
       logger.def(e instanceof GitError ? e.message : e)

@@ -86,6 +86,7 @@ ${bold(blueBright('Pull from origin'))}
 ${bold(blueBright('----------------'))}
   
   ${cyan('pulo')}                    Pulls from origin from the branch with the same name as pointed at the current HEAD.
+  ${cyan('pulor')}                   Same as ${cyan('pulo')} but with rebasing.
 
 No optional parameters.    
     `)

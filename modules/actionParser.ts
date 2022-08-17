@@ -31,6 +31,9 @@ async function parse(action: PitAction, args: string[]): Promise<void> {
     case PitAction.PULL_ORIGIN:
       await Git.pullOriginHead()
       break
+    case PitAction.PULL_ORIGIN_REBASE:
+      await Git.pullOriginHead({ rebase: true })
+      break
     case PitAction.USER:
       await Git.user(args)
       break

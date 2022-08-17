@@ -8,6 +8,7 @@ export enum PitAction {
   CLEAN = 'clean',
   CLEAN_ALIAS = 'cl',
   PULL_ORIGIN = 'pulo',
+  PULL_ORIGIN_REBASE = 'pulor',
   DOCKER = 'docker',
   DOCKER_ALIAS = 'd',
   JIRA = 'jira',
