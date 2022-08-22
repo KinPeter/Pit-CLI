@@ -80,7 +80,6 @@ export function useGitCheckout(git: SimpleGit, logger: LoggerInstance) {
       if (flag === '-r' || flag === '-rr') {
         await pullOrigin('develop', flag === '-rr')
       }
-      await showLatestCommit(logger, git)
     } catch (e) {
       logger.red(`Checkout failed.`)
       logger.def(e instanceof GitError ? e.message : e)
@@ -98,7 +97,6 @@ export function useGitCheckout(git: SimpleGit, logger: LoggerInstance) {
       if (flag === '-r' || flag === '-rr') {
         await pullOrigin(branch, flag === '-rr')
       }
-      await showLatestCommit(logger, git)
     } catch (e) {
       logger.red(`Checkout failed.`)
       logger.def(e instanceof GitError ? e.message : e)

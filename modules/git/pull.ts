@@ -1,5 +1,5 @@
 import { GitError, SimpleGit } from 'simple-git'
-import { confirmRepo } from '../../utils/gitUtils'
+import { confirmRepo, showLatestCommit } from '../../utils/gitUtils'
 import { LoggerInstance } from '../../utils/logger'
 
 export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
@@ -13,7 +13,10 @@ export function useGitPull(git: SimpleGit, logger: LoggerInstance) {
         logger.blue(`Pulling from ${remote}/${branch}...`)
         res = await git.raw('pull', remote, branch)
       }
-      logger.def(res)
+      if (res.trim()) {
+        logger.def(res.trim())
+      }
+      await showLatestCommit(logger, git)
     } catch (e) {
       logger.red(`Could not pull from ${remote}/${branch}`)
       logger.def(e instanceof GitError ? e.message : e)
