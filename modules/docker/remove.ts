@@ -47,7 +47,9 @@ export function useDockerRemove(docker: Docker, logger: LoggerInstance) {
 
   async function removeImages(): Promise<void> {
     try {
-      const data = await docker.command('images')
+      const data = await docker.command(
+        'images --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}\t{{.Size}}"'
+      )
       const images = getImageList(data as DockerImagesResponse)
       if (!images?.length) {
         logger.cyan('No images found, exiting...')
